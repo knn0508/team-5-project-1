@@ -1,0 +1,21 @@
+x-k6-common: &k6-common
+  image: grafana/k6:latest
+  volumes:
+    - ./loadtest.js:/scripts/loadtest.js:ro
+  environment:
+    TARGET_URL: https://20.124.33.118
+    PRODUCT_ID: "1"
+    PRODUCT_CATEGORY: Electronics
+    USE_SYNTHETIC_XFF: "true"
+    K6_NO_USAGE_REPORT: "true"
+  command: run /scripts/loadtest.js
+
+services:
+  k6-1:
+    <<: *k6-common
+
+  k6-2:
+    <<: *k6-common
+
+  k6-3:
+    <<: *k6-common
